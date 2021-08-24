@@ -14,6 +14,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,6 +35,31 @@ public class BatchConfig {
     private JobExecutionListener jobListener;
     @Autowired
     private StepExecutionListener stepListener;
+    @Autowired
+    @Qualifier("HelloTasklet")
+    private Tasklet helloTasklet;
+    @Autowired
+    @Qualifier("HelloTasklet2")
+    private Tasklet helloTasklet2;
+
+//    @Bean
+//    public Step taskletStep1() {
+//        return stepBuilderFactory.get("HelloTasklet").tasklet(helloTasklet).build();
+//    }
+//
+//    @Bean
+//    public Step taskletStep2() {
+//        return stepBuilderFactory.get("HelloTasklet2").tasklet(helloTasklet2).build();
+//    }
+//
+//    @Bean
+//    public Job taskletJob() throws Exception {
+//        return jobBuilderFactory.get("HelloWorldTaskletJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(taskletStep1())
+//                .next(taskletStep2())
+//                .build();
+//    }
 
     @Bean
     public Step chunkStep() {
